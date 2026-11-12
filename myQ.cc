@@ -37,8 +37,8 @@ void MyQ::handleMessage(cMessage *msg)
         //empty the queue !
 
         for(int j = 0; j < nrOfRadioBlocks && !queue.isEmpty(); j++) {
-            msg = (cMessage *)queue.pop();
-            send(msg, "txPackets");
+            cMessage* packets = (cMessage *)queue.pop();
+            send(packets, "txPackets");
         }
 
     }

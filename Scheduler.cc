@@ -65,6 +65,37 @@ void Scheduler::RoundRobin(int user, int channels, int checked)
     }
 }
 
+
+int Scheduler::best_quality(){
+    int quality = -1;
+    int user = -1;
+    for(int i = 0; i < NrUsers; i++) {
+        if(q[i] != 0 && r[i] > quality && NrBlocks[i] != q[i]) {
+            quality = r[i];
+            user = i;
+        }
+    }
+    return user;
+}
+void Scheduler::Opportunistic() {
+
+    int channelsLeft = NrOfChannels;
+
+    while(channelsLeft > 0) {
+
+        int user = best_quality();
+        if(user == -1)
+            break;
+
+        int allocated = std::min(q[user], channelsLeft);
+        NrBlocks[user] += allocated;
+        q[user] -= allocated;
+        channelsLeft -= allocated;
+    }
+}
+
+
+
 void Scheduler::handleMessage(cMessage *msg)
 {
    // int q[NrUsers];
@@ -93,21 +124,22 @@ void Scheduler::handleMessage(cMessage *msg)
 //            for(int i =0;i<NrUsers;i++){
 //                NrBlocks[i]=4;//you have to change this !!!
 //             }
-            RoundRobin(NextUser, NrOfChannels, 0);
-
+            //RoundRobin(NextUser, NrOfChannels, 0);
+            Opportunistic();
             for(int i =0;i<NrUsers;i++){
 
         //finds out the length of each queue !!
                 if(NrBlocks[i]>0){
                     cMessage *cmd = new cMessage("cmd");
 
-                    q[i]= q[i]-NrBlocks[i];
+                    //q[i]= q[i]-NrBlocks[i];
                     // EV << "Decrease: q["<<i<<"]= " << q[i] <<endl;
                     cmd->addPar("nrBlocks");
                     cmd->par("nrBlocks").setLongValue(NrBlocks[i]);
                     //set parameter value, e.g., nr of blocks to be sent from the queue by user i
                     //
                     send(cmd,"txScheduling",i);
+                    NrBlocks[i] = 0;
                 }
           //  double xtime = simTime().dbl();
             }

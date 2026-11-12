@@ -1,0 +1,64 @@
+version 3
+run Sched1-0-20261112-09:04:05-80703
+attr configname Sched1
+attr datetime 20261112-09:04:05
+attr datetimef 20261112-090405
+attr experiment Sched1
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network RadioSch2
+attr processid 80703
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config description "low job arrival rate"
+config *.usersCount 5
+config **.user[*].generator.sendIaTime "0.2 ms"
+config network RadioSch2
+config sim-time-limit 100h
+config cpu-time-limit 300s
+
+par RadioSch2.scheduler typename "\"Scheduler\""
+par RadioSch2.scheduler schedulingPeriod 1ms
+attr unit ms
+par RadioSch2.scheduler gateSize 5
+par RadioSch2.sink typename "\"Sink\""
+par RadioSch2.sink gateSize 5
+par RadioSch2.user[0].generator typename "\"Source\""
+par RadioSch2.user[0].generator sendIaTime 0.2ms
+attr unit ms
+par RadioSch2.user[0].myqq typename "\"MyQ\""
+par RadioSch2.user[0].myqq qlp 4
+par RadioSch2.user[0] typename "\"User\""
+par RadioSch2.user[1].generator typename "\"Source\""
+par RadioSch2.user[1].generator sendIaTime 0.2ms
+attr unit ms
+par RadioSch2.user[1].myqq typename "\"MyQ\""
+par RadioSch2.user[1].myqq qlp 4
+par RadioSch2.user[1] typename "\"User\""
+par RadioSch2.user[2].generator typename "\"Source\""
+par RadioSch2.user[2].generator sendIaTime 0.2ms
+attr unit ms
+par RadioSch2.user[2].myqq typename "\"MyQ\""
+par RadioSch2.user[2].myqq qlp 4
+par RadioSch2.user[2] typename "\"User\""
+par RadioSch2.user[3].generator typename "\"Source\""
+par RadioSch2.user[3].generator sendIaTime 0.2ms
+attr unit ms
+par RadioSch2.user[3].myqq typename "\"MyQ\""
+par RadioSch2.user[3].myqq qlp 4
+par RadioSch2.user[3] typename "\"User\""
+par RadioSch2.user[4].generator typename "\"Source\""
+par RadioSch2.user[4].generator sendIaTime 0.2ms
+attr unit ms
+par RadioSch2.user[4].myqq typename "\"MyQ\""
+par RadioSch2.user[4].myqq qlp 4
+par RadioSch2.user[4] typename "\"User\""
+par RadioSch2 typename "\"RadioSch2\""
+par RadioSch2 usersCount 5
+

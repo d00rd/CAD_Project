@@ -36,8 +36,10 @@ private:
     int q[10];// queues' lengths. NrUsers should be <= 10 !!!
     int NrBlocks[10];
     int NextUser = 0;
-
+    int r[10] = {7, 7, 5, 5, 3};
     void RoundRobin(int user, int channels, int checked);
+    int best_quality();
+    void Opportunistic();
 protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
